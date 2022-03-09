@@ -1,10 +1,27 @@
 const express = require('express');
 const path = require('path');
+const basicAuth = require('express-basic-auth');
 const Arena = require('./src/server/app');
 const routes = require('./src/server/views/routes');
 
 function run(config, listenOpts = {}) {
   const {app, Queues} = Arena(config);
+  const {authUsername, authPassword} = listenOpts;
+
+  if (authUsername && authPassword) {
+    console.log('BASIC AUTH ENABLED');
+
+    app.use(
+      basicAuth({
+        challenge: true,
+        users: {
+          [authUsername]: authPassword,
+        },
+      })
+    );
+  } else {
+    console.log('BASIC AUTH DISABLED!!!!!!!');
+  }
 
   Queues.useCdn =
     typeof listenOpts.useCdn !== 'undefined' ? listenOpts.useCdn : true;
@@ -15,6 +32,7 @@ function run(config, listenOpts = {}) {
     app.locals.appBasePath,
     express.static(path.join(__dirname, 'public'))
   );
+
   app.use(app.locals.appBasePath, routes);
 
   const port = listenOpts.port || 4567;
