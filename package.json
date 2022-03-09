@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "bull": "^3.22.4",
     "express": "^4.15.2",
     "express-basic-auth": "^1.2.1",
     "express-handlebars": "^5.1.0",
@@ -26,7 +27,6 @@
     "@semantic-release/npm": "^7.0.5",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "bee-queue": "^1.2.3",
-    "bull": "^3.22.4",
     "conventional-changelog-conventionalcommits": "^4.3.0",
     "eslint": "^7.23.0",
     "eslint-config-prettier": "^8.1.0",
